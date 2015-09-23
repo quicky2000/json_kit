@@ -20,7 +20,10 @@
 #include "json_value.h"
 #include <string>
 #include <locale>
+#if __GNUC__ >= 5
+#define QUICKY_HANDLE_UNICODE
 #include <codecvt>
+#endif // QUICKY_HANDLE_UNICODE
 
 namespace json_kit
 {
@@ -41,6 +44,7 @@ namespace json_kit
   m_string(p_string),
   m_size(p_string.size())
   {
+#ifdef QUICKY_HANDLE_UNICODE
     bool l_continu = true;
     do
       {
@@ -59,6 +63,7 @@ namespace json_kit
 	    l_continu = false;
 	  }
       } while(l_continu);
+#endif // QUICKY_HANDLE_UNICODE
   }
  
   //----------------------------------------------------------------------------
@@ -73,6 +78,10 @@ namespace json_kit
     return m_size;
   }
 }
+
+#ifdef QUICKY_HANDLE_UNICODE
+#undef QUICKY_HANDLE_UNICODE
+#endif // QUICKY_HANDLE_UNICODE
 
 #endif // JSON_STRING_H
 //EOF
