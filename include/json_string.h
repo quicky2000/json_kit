@@ -20,7 +20,7 @@
 #include "json_value.h"
 #include <string>
 #include <locale>
-#if __GNUC__ >= 5
+#if __GNUC__ >= 5 || __clang__
 #define QUICKY_HANDLE_UNICODE
 #include <codecvt>
 #endif // QUICKY_HANDLE_UNICODE
